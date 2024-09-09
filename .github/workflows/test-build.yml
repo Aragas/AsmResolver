@@ -52,6 +52,7 @@ jobs:
 
       - name: Build
         run: |
+          dotnet restore AsmResolver.sln -r win-x86;
           dotnet restore AsmResolver.sln -r win-x64;
           msbuild AsmResolver.sln /property:Configuration=${{inputs.build_configuration}};
 
