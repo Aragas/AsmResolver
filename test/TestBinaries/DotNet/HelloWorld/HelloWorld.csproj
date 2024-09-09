@@ -1,13 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-      <OutputType>Exe</OutputType>
-      <TargetFrameworks>net472;netcoreapp3.1;net6.0;net8.0</TargetFrameworks>
-      <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(TargetFramework)' != 'net472' ">
-      <PublishReadyToRun>true</PublishReadyToRun>
+        <OutputType>Exe</OutputType>
+        <TargetFrameworks>net472;netcoreapp3.1;net6.0;net8.0</TargetFrameworks>
+        <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+        <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
