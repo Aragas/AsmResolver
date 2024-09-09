@@ -148,7 +148,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
   </ItemGroup>
-  <Import Project="$(VCTargetsPath14)\Microsoft.Cpp.targets" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
