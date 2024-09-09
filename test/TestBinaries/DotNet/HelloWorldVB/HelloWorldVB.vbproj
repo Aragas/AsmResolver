@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <RootNamespace>HelloWorldVB</RootNamespace>
-        <TargetFrameworks>netcoreapp3.1;net8.0</TargetFrameworks>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
