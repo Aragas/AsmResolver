@@ -2,8 +2,10 @@
     <Import Project="$(MSBuildThisFileDirectory)..\Directory.Build.props" />
     
     <PropertyGroup>
-        <ArtifactsPath>$(MSBuildThisFileDirectory)..\artifacts\test</ArtifactsPath>
         <IsPackable>false</IsPackable>
+        <!--
+        <ArtifactsPath>$(MSBuildThisFileDirectory)..\artifacts\test</ArtifactsPath>
+        -->
     </PropertyGroup>
 
 </Project>
