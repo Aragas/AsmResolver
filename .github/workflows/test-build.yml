@@ -50,7 +50,7 @@ jobs:
       - name: Build
         run: |
           dotnet restore AsmResolver.sln;
-          dotnet msbuild AsmResolver.sln -property:Configuration=${{inputs.build_configuration}};
+          msbuild AsmResolver.sln -property:Configuration=${{inputs.build_configuration}};
 
       - name: Upload Test Build Output Cache
         uses: actions/upload-artifact@v4
