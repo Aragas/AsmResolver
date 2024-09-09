@@ -52,7 +52,7 @@ jobs:
 
       - name: Build
         run: |
-          dotnet restore -c ${{inputs.build_configuration}} AsmResolver.sln;
+          dotnet restore AsmResolver.sln;
           msbuild AsmResolver.sln /property:Configuration=${{inputs.build_configuration}};
 
       - name: Upload Test Build Output Cache
