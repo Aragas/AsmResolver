@@ -47,6 +47,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
       - name: Build
         run: |
           dotnet build -c ${{inputs.build_configuration}} AsmResolver.sln
