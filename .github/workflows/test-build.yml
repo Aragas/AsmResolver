@@ -49,7 +49,8 @@ jobs:
 
       - name: Build
         run: |
-          dotnet restore AsmResolver.sln;
+          # dotnet restore AsmResolver.sln;
+          msbuild AsmResolver.sln -t:restore -p:RestorePackagesConfig=true
           msbuild AsmResolver.sln -property:Configuration=${{inputs.build_configuration}};
 
       - name: Upload Test Build Output Cache
