@@ -15,5 +15,5 @@ runs:
     - name: Download Build Cache
       uses: actions/download-artifact@v4
       with:
-        name: build-output-${{inputs.os}}-${{inputs.build_configuration}}
-        path: AsmResolverTests/bin/
+        name: artifacts-${{inputs.os}}-${{inputs.build_configuration}}
+        path: artifacts/

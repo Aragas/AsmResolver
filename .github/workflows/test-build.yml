@@ -69,8 +69,3 @@ jobs:
           name: artifacts-${{inputs.os}}-${{inputs.build_configuration}}
           path: artifacts/
 
-      - name: Upload Test Build Output Cache
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output-${{inputs.os}}-${{inputs.build_configuration}}
-          path: test/**/bin/**/*
