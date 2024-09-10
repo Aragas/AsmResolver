@@ -106,21 +106,21 @@ jobs:
       build_configuration: ${{matrix.build_configuration}}
       manual_build: ${{needs.variables.outputs.PREBUILD != 'true'}}
 
-   windows-dotnet:
-     name: Windows .NET x86/x64
-     needs: [variables, build-binaries]
-     strategy:
-       matrix:
-         architecture: ['x86', 'x64']
-         target_framework: ${{fromJson((needs.variables.outputs.PARALLEL == 'true' && needs.variables.outputs.DOTNET_TARGET_FRAMEWORKS) || '[""]')}}
-         build_configuration: ${{fromJson(needs.variables.outputs.BUILD_CONFIGURATIONS)}}
-     uses: ./.github/workflows/test-windows-dotnet.yml
-     with:
-       architecture: ${{matrix.architecture}}
-       target_framework: ${{matrix.target_framework}}
-       target_framework_array: ${{needs.variables.outputs.DOTNET_TARGET_FRAMEWORKS}}
-       build_configuration: ${{matrix.build_configuration}}
-       manual_build: ${{needs.variables.outputs.PREBUILD != 'true'}}
+  windows-dotnet:
+    name: Windows .NET x86/x64
+    needs: [variables, build-binaries]
+    strategy:
+      matrix:
+        architecture: ['x86', 'x64']
+        target_framework: ${{fromJson((needs.variables.outputs.PARALLEL == 'true' && needs.variables.outputs.DOTNET_TARGET_FRAMEWORKS) || '[""]')}}
+        build_configuration: ${{fromJson(needs.variables.outputs.BUILD_CONFIGURATIONS)}}
+    uses: ./.github/workflows/test-windows-dotnet.yml
+    with:
+      architecture: ${{matrix.architecture}}
+      target_framework: ${{matrix.target_framework}}
+      target_framework_array: ${{needs.variables.outputs.DOTNET_TARGET_FRAMEWORKS}}
+      build_configuration: ${{matrix.build_configuration}}
+      manual_build: ${{needs.variables.outputs.PREBUILD != 'true'}}
 
   # windows-framework:
   #   name: Windows .NET Framework x86/x64
