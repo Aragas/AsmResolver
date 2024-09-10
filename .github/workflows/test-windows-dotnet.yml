@@ -52,6 +52,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
       - name: Setup .NET Latest/${{inputs.target_framework}} ${{inputs.architecture}}
         uses: ./.github/actions/test-setup-dotnet-windows
         with:
