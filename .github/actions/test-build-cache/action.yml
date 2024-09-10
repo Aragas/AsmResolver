@@ -15,5 +15,5 @@ runs:
     - name: Download Build Cache
       uses: actions/download-artifact@v4
       with:
-        name: artifacts-${{inputs.os}}-${{inputs.build_configuration}}
+        name: artifacts-${{inputs.build_configuration}}
         path: artifacts/

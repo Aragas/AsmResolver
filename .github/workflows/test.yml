@@ -34,7 +34,7 @@ env:
   PARALLEL: false
   # Whether we should build the binaries before running the tests
   # Use with `PARALLEL: true` to reduce the execution time of test jobs, this increasing the throughput
-  PREBUILD: false
+  PREBUILD: true
 
   # You are interested in changing these values
   BUILD_CONFIGURATIONS:                 "['Release']"
