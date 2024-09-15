@@ -64,6 +64,10 @@ jobs:
       - name: Get Installed Wine Information
         if: ${{inputs.os == 'ubuntu' || inputs.os == 'macos'}}
         run: wine --version
+
+      - name: Get Installed Wine Programs Information
+        if: ${{inputs.os == 'ubuntu' || inputs.os == 'macos'}}
+        run: wine uninstaller --list
       # Wine
 
       # .NET
