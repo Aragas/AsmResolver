@@ -1,0 +1,13 @@
+name: Install Wine on Ubuntu
+description: Install Wine on Ubuntu
+
+runs:
+  using: "composite"
+  steps:
+    - run: sudo dpkg --add-architecture i386
+      shell: bash
+    - run: sudo apt-get update
+      shell: bash
+    - run: sudo apt install wine wine32
+      shell: bash
+

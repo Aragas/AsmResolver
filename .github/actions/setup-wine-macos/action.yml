@@ -1,0 +1,8 @@
+name: Install Wine on OS X
+description: Install Wine on OS X
+
+runs:
+  using: "composite"
+  steps:
+    - run: brew install --cask wine-stable
+      shell: bash
