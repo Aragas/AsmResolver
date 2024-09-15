@@ -24,7 +24,7 @@ runs:
     - name: Install WineMono
       run: |
         curl -L -o mono.tar.xz ${{env.WINE_MONO}}
-        tar -xzf mono.tar.xz -C /usr/share/wine/mono
+        tar -xf mono.tar.xz -C /usr/share/wine/mono
       shell: bash
       env: 
         WINE_MONO: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-9.3.0/wine-mono-9.3.0-x86.tar.xz
