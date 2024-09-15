@@ -16,12 +16,15 @@ runs:
     - run: sudo apt-get update
       shell: bash
 
-    - run: sudo apt install --install-recommends winehq-stable winetricks
-      shell: bash
-
-    - name: Install WineMono
-      run: |
-        $ACTION_PATH/install-wine-addon.sh mono
+    - run: sudo apt install --install-recommends winehq-staging=${{env.WINE_VERSION}}
       shell: bash
       env: 
-        ACTION_PATH: ${{ github.action_path }}
+        WINE_VERSION: 9.17~jammy-1
+   
+    - name: Install WineMono
+      run: |
+        curl -L -o mono.tar.xz ${{env.WINE_MONO}}
+        tar -xzf mono.tar.xz -C /usr/share/wine/mono
+      shell: bash
+      env: 
+        WINE_MONO: https://github.com/madewokherd/wine-mono/releases/download/wine-mono-9.3.0/wine-mono-9.3.0-x86.tar.xz
