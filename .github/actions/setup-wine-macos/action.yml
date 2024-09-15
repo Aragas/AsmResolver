@@ -5,9 +5,9 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -L https://raw.githubusercontent.com/Homebrew/homebrew-cask/2f29727c9961e8159df6dc19db315bc7783a4b99/Casks/w/wine%40staging.rb > wine.rb;
-        brew install wine.rb;
-        rm wine.rb;
+        curl -L https://raw.githubusercontent.com/Homebrew/homebrew-cask/2f29727c9961e8159df6dc19db315bc7783a4b99/Casks/w/wine%40staging.rb > wine@staging.rb;
+        brew install --cask wine@staging.rb;
+        rm wine@staging.rb;
       shell: bash
    
     - run: |
