@@ -60,6 +60,10 @@ jobs:
       - name: Setup Wine on OS X
         if: ${{inputs.os == 'macos'}}
         uses: ./.github/actions/setup-wine-macos
+
+      - name: Get Installed Wine Information
+        if: ${{inputs.os == 'ubuntu' || inputs.os == 'macos'}}
+        run: wine --version
       # Wine
 
       # .NET

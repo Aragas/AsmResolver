@@ -6,8 +6,22 @@ runs:
   steps:
     - run: sudo dpkg --add-architecture i386
       shell: bash
-    - run: sudo apt-get update
-      shell: bash
-    - run: sudo apt install wine wine32
+
+    - run: |
+        sudo mkdir -pm755 /etc/apt/keyrings;
+        sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key;
+        sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
       shell: bash
 
+    - run: sudo apt-get update
+      shell: bash
+
+    - run: sudo apt install --install-recommends winehq-stable winetricks
+      shell: bash
+
+    - name: Install WineMono
+      run: |
+        $ACTION_PATH/install-wine-addon.sh mono
+      shell: bash
+      env: 
+        ACTION_PATH: ${{ github.action_path }}
