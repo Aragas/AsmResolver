@@ -126,7 +126,6 @@ jobs:
     name: Cleanup Build Output
     needs: [variables, test-results, publish]
     runs-on: ubuntu-latest
-    if: always()
     steps:
       - uses: joutvhu/delete-artifact@v2
         with:
