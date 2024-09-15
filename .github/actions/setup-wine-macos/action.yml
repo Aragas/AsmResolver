@@ -4,7 +4,10 @@ description: Install Wine on OS X
 runs:
   using: "composite"
   steps:
-    - run: brew install --cask https://raw.githubusercontent.com/Homebrew/homebrew-cask/2f29727c9961e8159df6dc19db315bc7783a4b99/Casks/w/wine%40staging.rb
+    - run: |
+        curl -L https://raw.githubusercontent.com/Homebrew/homebrew-cask/2f29727c9961e8159df6dc19db315bc7783a4b99/Casks/w/wine%40staging.rb > wine.rb;
+        brew install wine.rb;
+        rm wine.rb;
       shell: bash
    
     - run: |
