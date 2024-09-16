@@ -89,7 +89,7 @@ jobs:
         build_configuration: ${{fromJson(needs.variables.outputs.BUILD_CONFIGURATIONS)}}
     uses: ./.github/workflows/reusable-test.yml
     with:
-      image: ${{matrix.runner.code}}
+      image: ${{matrix.runner.image}}
       architecture: ${{matrix.runner.arch}}
       dotnet_target_frameworks: ${{needs.variables.outputs.DOTNET_TARGET_FRAMEWORKS}}
       build_configuration: ${{matrix.build_configuration}}
