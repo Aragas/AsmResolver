@@ -33,4 +33,4 @@ runs:
           ${{steps.get_channels.outputs.channel}}
           ${{steps.get_channels.outputs.channels_multiline}}
       env:
-        DOTNET_INSTALL_DIR: /usr/share/dotnet
+        DOTNET_INSTALL_DIR: /usr/local/share/dotnet
