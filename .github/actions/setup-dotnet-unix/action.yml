@@ -32,5 +32,3 @@ runs:
         dotnet-version: |
           ${{steps.get_channels.outputs.channel}}
           ${{steps.get_channels.outputs.channels_multiline}}
-      env:
-        DOTNET_INSTALL_DIR: /usr/local/share/dotnet
