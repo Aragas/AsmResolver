@@ -117,12 +117,3 @@ jobs:
       image: 'windows-latest'
       architecture: 'x64'
       build_configuration: 'Release'
-
-  cleanup-build-cache:
-    name: Cleanup Build Cache
-    needs: [variables, publish]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: joutvhu/delete-artifact@v2
-        with:
-          pattern: build-cache-*

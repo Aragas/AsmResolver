@@ -13,7 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Download event file
+    - name: Download Event File
       uses: actions/download-artifact@v4
       with:
         run-id: ${{ fromJson(inputs.workflow_run).id }}

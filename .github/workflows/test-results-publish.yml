@@ -17,9 +17,9 @@ jobs:
     permissions:
       checks: write
       pull-requests: write
-      contents: read
+      contents: write
       issues: read
-      actions: write
+      actions: read
       statuses: read
 
     steps:
@@ -35,19 +35,3 @@ jobs:
         with:
           workflow_run: ${{toJSON(github.event.workflow_run)}}
           experimental: true
-
-  cleanup-test-results:
-    name: Cleanup Test Results
-    needs: [publish-test-results]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: joutvhu/delete-artifact@v2
-        with:
-          run-id: ${{ github.event.workflow_run.id }}
-          token: ${{ github.token }}
-          pattern: test-results-*
-      - uses: joutvhu/delete-artifact@v2
-        with:
-          run-id: ${{ github.event.workflow_run.id }}
-          token: ${{ github.token }}
-          pattern: experimental-test-results-*
