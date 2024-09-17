@@ -97,7 +97,10 @@ namespace AsmResolver.Tests.Runners
                     // Process has already exited.
                 }
 
-                throw new TimeoutException();
+                string outputString = process.StandardOutput.ReadToEnd();
+                string errorString = process.StandardError.ReadToEnd();
+                string nl = Environment.NewLine;
+                throw new TimeoutException($"Failed to WaitForExit({timeout})!{nl}Output:{nl}{outputString}", new RunnerException(process.ExitCode, errorString));
             }
 
             process.WaitForExit();
