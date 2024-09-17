@@ -6,7 +6,7 @@ on:
       - master
       - development
       - simple
-      - simple-osx
+      - simple-test2
     paths-ignore:
       - '.github/workflows/docs.yml'
       - 'docs/**'
@@ -35,6 +35,19 @@ env:
   FRAMEWORK_TARGET_FRAMEWORKS:          "['net35', 'net48']"
 
 jobs:
+
+  # This technique allows us to run `test-results-publish.yml` with the owner's secrets
+  # without comprimizing the security
+  upload-event-file:
+    name: Upload Event File
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload event file
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-event-file
+          path: ${{ github.event_path }}
+          retention-days: 1
 
   # https://stackoverflow.com/a/77549656
   variables:
@@ -122,17 +135,11 @@ jobs:
         with:
           experimental: true
 
-  cleanup-build-output:
-    name: Cleanup Build Output
+  cleanup-build-cache:
+    name: Cleanup Build Cache
     needs: [variables, test-results, publish]
     runs-on: ubuntu-latest
     steps:
       - uses: joutvhu/delete-artifact@v2
         with:
           pattern: build-cache-*
-      - uses: joutvhu/delete-artifact@v2
-        with:
-          pattern: test-results-*
-      - uses: joutvhu/delete-artifact@v2
-        with:
-          pattern: experimental-test-results-*

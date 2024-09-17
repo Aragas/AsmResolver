@@ -1,0 +1,46 @@
+
+name: Publish Test Results
+
+on:
+  workflow_run:
+    workflows: [Test and Publish]
+    types: [completed]
+permissions: {}
+
+jobs:
+  publish-test-results:
+    if: github.event.workflow_run.conclusion != 'skipped' && github.event.workflow_run.conclusion != 'cancelled'
+    runs-on: ubuntu-latest
+    name: Publish test results
+
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: read
+      issues: read
+      actions: read
+      statuses: read
+
+    steps:
+      - name: Download and Publish Test Results
+        uses: ./.github/actions/test-results-download-publish
+        with:
+          workflow_run: ${{github.event.workflow_run}}
+
+      - name: Download and Publish Test Results (Experimental)
+        uses: ./.github/actions/test-results-download-publish
+        with:
+          workflow_run: ${{github.event.workflow_run}}
+          experimental: true
+
+  cleanup-test-results:
+    name: Cleanup Test Results
+    needs: [publish-test-results]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: joutvhu/delete-artifact@v2
+        with:
+          pattern: test-results-*
+      - uses: joutvhu/delete-artifact@v2
+        with:
+          pattern: experimental-test-results-*
