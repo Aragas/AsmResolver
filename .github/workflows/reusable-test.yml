@@ -46,18 +46,16 @@ jobs:
         uses: 8BitJonny/gh-get-current-pr@3.0.0
         id: pr
 
+      - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ steps.pr.outputs.pr }}"
+
   test:
     name: Test
     needs: [check-pr]
     runs-on: ${{inputs.image}}
     continue-on-error: ${{inputs.experimental}}
     timeout-minutes: 10
-    if: ${{inputs.experimental == 'false' || needs.check-pr.outputs.pr_found == 'false'}}
+    if: ${{inputs.experimental == 'false' || (inputs.experimental == 'true' && needs.check-pr.outputs.pr_found == 'false')}}
     steps:
-      - name: Check if PR
-        uses: 8BitJonny/gh-get-current-pr@3.0.0
-        id: PR
-
       - uses: actions/checkout@v4
 
       - name: Install Rosetta 2 on OS X
