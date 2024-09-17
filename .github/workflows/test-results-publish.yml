@@ -43,7 +43,9 @@ jobs:
     steps:
       - uses: joutvhu/delete-artifact@v2
         with:
+          run-id: ${{ github.event.workflow_run.id }}
           pattern: test-results-*
       - uses: joutvhu/delete-artifact@v2
         with:
+          run-id: ${{ github.event.workflow_run.id }}
           pattern: experimental-test-results-*
