@@ -13,16 +13,19 @@ using AsmResolver.PE.File;
 using AsmResolver.PE.Win32Resources.Version;
 using AsmResolver.Tests.Runners;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace AsmResolver.DotNet.Tests.Bundles
 {
     public class BundleManifestTest : IClassFixture<TemporaryDirectoryFixture>
     {
+        private readonly ITestOutputHelper _output;
         private readonly TemporaryDirectoryFixture _fixture;
 
-        public BundleManifestTest(TemporaryDirectoryFixture fixture)
+        public BundleManifestTest(TemporaryDirectoryFixture fixture, ITestOutputHelper output)
         {
             _fixture = fixture;
+            _output = output;
         }
 
         [Fact]
@@ -309,7 +312,8 @@ namespace AsmResolver.DotNet.Tests.Bundles
                     null,
                     5000,
                     className,
-                    methodName);
+                    methodName,
+                    _output);
 
             Assert.Equal("Hello, Mars!\n", output);
         }

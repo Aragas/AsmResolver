@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using AsmResolver.IO;
 using AsmResolver.PE.File;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace AsmResolver.Tests.Runners
 {
@@ -61,15 +62,16 @@ namespace AsmResolver.Tests.Runners
         public string RunAndCaptureOutput(string fileName, byte[] contents, string[]? arguments = null,
             int timeout = 30000,
             [CallerFilePath] string testClass = "File",
-            [CallerMemberName] string testMethod = "Test")
+            [CallerMemberName] string testMethod = "Test",
+            ITestOutputHelper? outputHelper = null)
         {
             testClass = Path.GetFileNameWithoutExtension(testClass);
             string testExecutablePath = GetTestExecutablePath(testClass, testMethod, fileName);
             File.WriteAllBytes(testExecutablePath, contents);
-            return RunAndCaptureOutput(testExecutablePath, arguments, timeout);
+            return RunAndCaptureOutput(testExecutablePath, arguments, timeout, outputHelper);
         }
 
-        public string RunAndCaptureOutput(string filePath, string[]? arguments = null, int timeout = 30000)
+        public string RunAndCaptureOutput(string filePath, string[]? arguments = null, int timeout = 30000, ITestOutputHelper? outputHelper = null)
         {
             var info = GetStartInfo(filePath, arguments);
             info.RedirectStandardError = true;
@@ -80,8 +82,8 @@ namespace AsmResolver.Tests.Runners
             using var process = new Process();
 
             process.StartInfo = info;
-            process.OutputDataReceived += (sender, args) => Console.WriteLine("received output: {0}", args.Data);
-            process.ErrorDataReceived += (sender, args) => Console.WriteLine("received error: {0}", args.Data);
+            process.OutputDataReceived += (sender, args) => outputHelper?.WriteLine("received output: {0}", args.Data);
+            process.ErrorDataReceived += (sender, args) => outputHelper?.WriteLine("received error: {0}", args.Data);
             process.Start();
 
             if (!process.WaitForExit(timeout))
