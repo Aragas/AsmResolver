@@ -80,6 +80,8 @@ namespace AsmResolver.Tests.Runners
             using var process = new Process();
 
             process.StartInfo = info;
+            process.OutputDataReceived += (sender, args) => Console.WriteLine("received output: {0}", args.Data);
+            process.ErrorDataReceived += (sender, args) => Console.WriteLine("received error: {0}", args.Data);
             process.Start();
 
             if (!process.WaitForExit(timeout))
