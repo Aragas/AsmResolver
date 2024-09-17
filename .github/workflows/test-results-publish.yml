@@ -3,7 +3,8 @@ name: Publish Test Results
 
 on:
   workflow_run:
-    workflows: [Test and Publish]
+    workflows:
+    - Test and Publish
     types: [completed]
 permissions: {}
 
