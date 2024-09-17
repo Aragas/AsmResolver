@@ -21,20 +21,14 @@ runs:
         name: test-event-file
         merge-multiple: false
 
-    - name: Download test results
-      uses: actions/download-artifact@v4
-      with:
-        run-id: ${{ fromJson(inputs.workflow_run).id }}
-        github-token: ${{ github.token }}
-        pattern: test-results *
-        merge-multiple: false
-
     - name: Download Test Results
       uses: actions/download-artifact@v4
       with:
         run-id: ${{ fromJson(inputs.workflow_run).id }}
+        github-token: ${{ github.token }}
         pattern: ${{(inputs.experimental == 'true' && 'experimental-') || ''}}test-results-*
         path: test-results
+        merge-multiple: false
 
     - name: Publish Test Results
       uses: nike4613/actions-test-results@v3

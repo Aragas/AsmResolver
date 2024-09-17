@@ -19,7 +19,7 @@ jobs:
       pull-requests: write
       contents: read
       issues: read
-      actions: read
+      actions: write
       statuses: read
 
     steps:
@@ -44,8 +44,10 @@ jobs:
       - uses: joutvhu/delete-artifact@v2
         with:
           run-id: ${{ github.event.workflow_run.id }}
+          token: ${{ github.token }}
           pattern: test-results-*
       - uses: joutvhu/delete-artifact@v2
         with:
           run-id: ${{ github.event.workflow_run.id }}
+          token: ${{ github.token }}
           pattern: experimental-test-results-*
