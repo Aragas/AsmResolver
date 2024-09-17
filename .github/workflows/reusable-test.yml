@@ -36,12 +36,28 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
+  check-pr:
+    name: Check if PR
+    runs-on: ubuntu-latest
+    outputs:
+      pr_found: ${{ steps.pr.outputs.pr_found }}
+    steps:
+      - name: Check if PR
+        uses: 8BitJonny/gh-get-current-pr@3.0.0
+        id: pr
+
   test:
     name: Test
+    needs: [check-pr]
     runs-on: ${{inputs.image}}
     continue-on-error: ${{inputs.experimental}}
     timeout-minutes: 10
+    if: ${{inputs.experimental == 'false' || needs.check-pr.outputs.pr_found == 'false'}}
     steps:
+      - name: Check if PR
+        uses: 8BitJonny/gh-get-current-pr@3.0.0
+        id: PR
+
       - uses: actions/checkout@v4
 
       - name: Install Rosetta 2 on OS X
