@@ -24,10 +24,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Right now we can't run experimental tests that can fail, since it will affect the PR
-  # We could potentially exclude experimental build on PR and only run it on master push
-  EXPERIMENTAL: false
-
   # You are interested in changing these values
   BUILD_CONFIGURATIONS:                 "['Release']"
   DOTNET_TARGET_FRAMEWORKS:             "['netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0']"
@@ -54,15 +50,18 @@ jobs:
     name: Variable Accessibility Workaround for Jobs
     runs-on: ubuntu-latest
     outputs:
-      EXPERIMENTAL: ${{env.EXPERIMENTAL}}
+      EXPERIMENTAL: ${{steps.PR.outputs.pr_found}}
       BUILD_CONFIGURATIONS: ${{env.BUILD_CONFIGURATIONS}}
       DOTNET_TARGET_FRAMEWORKS: ${{env.DOTNET_TARGET_FRAMEWORKS}}
       DOTNET_TARGET_FRAMEWORKS_MACOS_ARM64: ${{env.DOTNET_TARGET_FRAMEWORKS_MACOS_ARM64}}
       FRAMEWORK_TARGET_FRAMEWORKS: ${{env.FRAMEWORK_TARGET_FRAMEWORKS}}
     steps:
+      - name: Check if PR
+        uses: 8BitJonny/gh-get-current-pr@3.0.0
+        id: PR
+
       - name: Compute outputs
         run: |
-          echo "EXPERIMENTAL=${{env.EXPERIMENTAL}}" >> $GITHUB_OUTPUT
           echo "BUILD_CONFIGURATIONS=${{env.BUILD_CONFIGURATIONS}}" >> $GITHUB_OUTPUT
           echo "DOTNET_TARGET_FRAMEWORKS=${{env.DOTNET_TARGET_FRAMEWORKS}}" >> $GITHUB_OUTPUT
           echo "DOTNET_TARGET_FRAMEWORKS_MACOS_ARM64=${{env.DOTNET_TARGET_FRAMEWORKS_MACOS_ARM64}}" >> $GITHUB_OUTPUT
