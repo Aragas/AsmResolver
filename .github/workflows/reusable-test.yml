@@ -45,6 +45,9 @@ jobs:
       - name: Check if PR
         uses: 8BitJonny/gh-get-current-pr@3.0.0
         id: pr
+        with:
+          github-token: ${{ github.token }}
+          sha: ${{ github.event.pull_request.head.sha }}
 
       - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ steps.pr.outputs.pr }}"
 
@@ -54,7 +57,7 @@ jobs:
     runs-on: ${{inputs.image}}
     continue-on-error: ${{inputs.experimental}}
     timeout-minutes: 10
-    if: ${{inputs.experimental == 'false' || (inputs.experimental == 'true' && needs.check-pr.outputs.pr_found == 'false')}}
+    if: ${{!inputs.experimental || (inputs.experimental && needs.check-pr.outputs.pr_found == 'false')}}
     steps:
       - uses: actions/checkout@v4
 
