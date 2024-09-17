@@ -1,4 +1,4 @@
-name: Reusable Workflow Test
+name: 🔒Reusable Workflow Test
 # We build the binaries for all os and configurations
 # So we don't have to do that on each test run
 
