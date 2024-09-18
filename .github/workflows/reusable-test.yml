@@ -59,7 +59,7 @@ jobs:
         shell: bash
 
   test:
-    name: Test
+    name: Execute Tests
     needs: [find-pr]
     runs-on: ${{inputs.image}}
     continue-on-error: ${{inputs.experimental}}

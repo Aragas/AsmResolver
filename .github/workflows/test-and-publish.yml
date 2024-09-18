@@ -1,4 +1,4 @@
-name: Test and Publish
+name: Test and Publish NuGet
 
 on:
   push:
@@ -69,7 +69,7 @@ jobs:
           echo "FRAMEWORK_TARGET_FRAMEWORKS=${{env.FRAMEWORK_TARGET_FRAMEWORKS}}" >> $GITHUB_OUTPUT
 
   build:
-    name: Build
+    name: Perform Build
     needs: [variables]
     strategy:
       matrix:
@@ -86,7 +86,7 @@ jobs:
       build_configuration: ${{matrix.build_configuration}}
 
   test:
-    name: Test
+    name: Execute Tests
     needs: [variables, build]
     strategy:
       fail-fast: false
