@@ -51,7 +51,12 @@ jobs:
           branch: '${{ github.event.workflow_run.head_commit.author.username }}:${{ github.event.workflow_run.head_branch }}'
           author: ${{ github.event.workflow_run.head_commit.author.name }}
 
-      - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ toJson(steps.pr.outputs) }}"
+      - run: |
+          printf '%s\n' "$JSON_DOC" > foo.json
+          cat foo.json
+        env:
+          JSON_DOC: ${{ toJSON(steps.pr.outputs) }}
+        shell: bash
 
   test:
     name: Test
