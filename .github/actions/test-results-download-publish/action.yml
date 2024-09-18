@@ -37,6 +37,7 @@ runs:
         files: test-results/**/*.trx
         fail_on: ${{(inputs.experimental == 'true' && 'nothing') || 'test failures'}}
         comment_mode: ${{(inputs.experimental == 'true' && 'off') || 'always'}}
+        use_emojis: true
         
         commit: ${{ fromJson(inputs.workflow_run).head_sha }}
         event_file: event.json
