@@ -36,8 +36,8 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  check-pr:
-    name: Check if PR
+  find-pr:
+    name: Find Pull Request
     runs-on: ubuntu-latest
     outputs:
       pr_found: ${{ steps.pr.outputs.number != '' }}
@@ -51,15 +51,15 @@ jobs:
           branch: '${{ github.event.workflow_run.head_commit.author.username }}:${{ github.event.workflow_run.head_branch }}'
           author: ${{ github.event.workflow_run.head_commit.author.name }}
 
-      - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ steps.pr.outputs }}"
+      - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ toJson(steps.pr.outputs) }}"
 
   test:
     name: Test
-    needs: [check-pr]
+    needs: [find-pr]
     runs-on: ${{inputs.image}}
     continue-on-error: ${{inputs.experimental}}
     timeout-minutes: 10
-    if: ${{!inputs.experimental || (inputs.experimental && needs.check-pr.outputs.pr_found == 'false')}}
+    if: ${{!inputs.experimental || (inputs.experimental && needs.find-pr.outputs.pr_found == 'false')}}
     steps:
       - uses: actions/checkout@v4
 
