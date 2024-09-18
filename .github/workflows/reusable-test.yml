@@ -40,16 +40,18 @@ jobs:
     name: Check if PR
     runs-on: ubuntu-latest
     outputs:
-      pr_found: ${{ steps.pr.outputs.pr_found }}
+      pr_found: ${{ steps.pr.outputs.number != '' }}
     steps:
-      - name: Check if PR
-        uses: 8BitJonny/gh-get-current-pr@3.0.0
+      - name: Find Pull Request
+        uses: juliangruber/find-pull-request-action@v1
         id: pr
         with:
           github-token: ${{ github.token }}
-          sha: ${{ github.event.pull_request.head.sha }}
+          state: open
+          branch: '${{ github.event.workflow_run.head_commit.author.username }}:${{ github.event.workflow_run.head_branch }}'
+          author: ${{ github.event.workflow_run.head_commit.author.name }}
 
-      - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ steps.pr.outputs.pr }}"
+      - run: echo "Your PR number is ${{ steps.pr.outputs.number }} and its JSON is ${{ steps.pr.outputs }}"
 
   test:
     name: Test
